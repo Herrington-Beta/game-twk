@@ -19,7 +19,7 @@
 **T**rain your body **w**ith your partner, **K**azuya!
 
 You have to train ANIKI's body quickly
-because you don't have time.
+because you have only a little time.
 Ikeda tries to attack your partner.
 So, you have to stop training when Ikeda comes in.
 
