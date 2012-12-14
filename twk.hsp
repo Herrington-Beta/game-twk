@@ -1,0 +1,147 @@
+	/* 
+	This script was written by billy.
+	*/
+ 
+ 	title "Training with Kazuya"
+	
+	buffer 1
+	picload "g/01.bmp"
+	buffer 2
+	picload "g/02.bmp"
+	buffer 3
+	picload "g/03.bmp"
+	buffer 4
+	picload "g/04.bmp"
+	buffer 5
+	picload "g/05.bmp"
+	buffer 6
+	picload "g/06.bmp"
+	buffer 7
+	picload "g/07.bmp"
+	buffer 10
+	picload "g/bar.bmp"
+	buffer 11
+	picload "g/pow.bmp"
+	buffer 12
+	picload "g/ike.bmp"
+	buffer 20
+	picload "g/back.bmp"
+	
+	mmload "s/01.wav",30,0
+	mmload "s/02.wav",31,0
+	mmload "s/03.wav",32,0
+	mmload "s/04.wav",33,0
+	
+	py=350
+	iy=-100
+	sec=0
+	
+	screen 0,512,384
+	
+	cls 4
+	color 255,255,255
+	pos 0,0  : mes "Train your body with your partner, Kazuya!"
+	pos 0,20 : mes "You have to train your body quickly"
+	pos 0,40 : mes "because you don't have plenty of time."
+	pos 0,60 : mes "Ikeda tries to attack your partner."
+	pos 0,80 : mes "So, you have to stop training when Ikeda comes in."
+	
+	pos 450,360 : button goto "Start now!" ,*step
+	stop
+	
+*step
+	cls 4
+	await 10
+	goto *main
+	
+*main
+	redraw 0
+	color 0,0,0 : boxf 0,0,512,384
+	
+	my=mousey
+	
+	gmode 2
+	pos 0,0
+	if my>350 : gcopy 1,0,0,512,384
+	if my<=350 & my>290 {
+		gcopy 2,0,0,512,384
+		mp=1
+	}
+	if my<=290 & my>230 : gcopy 3,0,0,512,384
+	if my<=230 & my>170 : gcopy 4,0,0,512,384
+	if my<=170 & my>110 : gcopy 5,0,0,512,384
+	if my<=110 & my>50 {
+		gcopy 6,0,0,512,384
+		mp=0
+	}
+	if my<=50 : gcopy 7,0,0,512,384
+	
+	if mp=0 : mc=1
+	if mp=1 & mc=1 {
+		py=py-9
+		mc=0
+	}
+	
+	if py<0 : goto *clear
+	
+	pos 475,20 : gcopy 10,0,0,25,350
+	pos 435,py : gcopy 11,0,0,50,35
+	
+	sec=sec+1
+	font "",40,1 : pos 10,350
+	if sec<100 : mes "10"
+	if sec>=100 & sec<200 : mes "9"
+	if sec>=200 & sec<300 : mes "8"
+	if sec>=300 & sec<400 : mes "7"
+	if sec>=400 & sec<500 : mes "6"
+	if sec>=500 & sec<600 : mes "5"
+	if sec>=600 & sec<700 : mes "4"
+	if sec>=700 & sec<800 : mes "3"
+	if sec>=800 & sec<900 : mes "2"
+	if sec>=900 & sec<1000 : mes "1"
+	if sec>=1000 : goto *over
+	
+	if sec>450 {
+		if sec=500 : mmplay 33
+		pos 240,iy : gcopy 12,0,0,337,337
+		if sec<550 : iy=iy+1
+		if sec>630 : iy=iy-1
+	}
+	
+	if sec>=550 & sec<=630 {
+		if my<170 {
+			mmplay 30
+			wait 100
+			goto *over
+		}
+	}
+	
+	redraw 1
+	await 5
+	goto *main
+	
+*clear
+	cls 4
+	wait 10
+	mmplay 31
+	pos 0,0 : gcopy 20,0,0,512,384
+	color 0,0,0 : mes "Well done!"
+	pos 450,360 : button goto "Bye!" ,*bye
+	stop
+	
+*over
+	cls 4
+	wait 10
+	mmplay 32
+	color 255,255,255 : pos 0,0 : mes "You lose!"
+	pos 450,360 : button goto "Once more!" ,*more
+	stop
+	
+*more
+	py=350
+	iy=-100
+	sec=0
+	goto *step
+	
+*bye
+	end
