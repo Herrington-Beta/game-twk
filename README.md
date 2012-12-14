@@ -1,6 +1,6 @@
 # Training with Kazuya! #
 
-**1.Contains**
+**1.Contents**
 
 - README.md ... This!
 - TRAINING.exe ... Playing the GAME
